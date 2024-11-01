@@ -307,6 +307,8 @@ class TrackWatcher() {
     blockChannel.send(blockStatus)
     trainChannel.send(trainStatus)
 
-    BlueMapIntegration.update()
+    if (System.getProperty("createTrackMap.enableBlueMapCompat").toBoolean()) {
+      BlueMapIntegration.update()
+    }
   }
 }
