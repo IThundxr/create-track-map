@@ -1,11 +1,8 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
-
 plugins {
   kotlin("jvm") version "2.0.21"
   kotlin("plugin.serialization") version "2.0.20"
   java
   id("fabric-loom") version "1.7.+"
-  id("com.github.johnrengelman.shadow") version "7.1.2"
   id("com.modrinth.minotaur") version "2.+"
 }
 
@@ -31,9 +28,6 @@ repositories {
   maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge config api port
 }
 
-val shadowDep: Configuration by configurations.creating
-configurations.implementation.get().extendsFrom(shadowDep)
-
 val fabric_loader_version: String by project
 val fabric_api_version: String by project
 val fabric_kotlin_version: String by project
@@ -53,10 +47,10 @@ dependencies {
 
   modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:$create_version+mc$minecraft_version")
 
-  shadowDep("io.ktor:ktor-server-core-jvm:$ktor_version")
-  shadowDep("io.ktor:ktor-server-cio-jvm:$ktor_version")
-  shadowDep("io.ktor:ktor-server-cors-jvm:$ktor_version")
-  shadowDep("org.jetbrains.kotlin-wrappers:kotlin-css:$kotlin_css_version")
+  implementation(include("io.ktor:ktor-server-core-jvm:$ktor_version")!!)
+  implementation(include("io.ktor:ktor-server-cio-jvm:$ktor_version")!!) 
+  implementation(include("io.ktor:ktor-server-cors-jvm:$ktor_version")!!)
+  implementation(include("org.jetbrains.kotlin-wrappers:kotlin-css:$kotlin_css_version")!!)
 
   compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_json_version")
   compileOnly("com.github.BlueMap-Minecraft:BlueMapAPI:v2.5.1")
@@ -89,28 +83,9 @@ tasks {
     options.release.set(targetJavaVersion)
   }
 
-  shadowJar {
-    archiveBaseName.set(archives_base_name)
-    archiveVersion.set(archives_version)
-    archiveClassifier.set("slim")
-
-    dependencies {
-      exclude(dependency("org.jetbrains.kotlin:.*"))
-      exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-.*"))
-      exclude(dependency("org.slf4j:.*"))
-    }
-    configurations = listOf(shadowDep)
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  }
-
   remapJar {
     archiveBaseName.set(archives_base_name)
     archiveVersion.set(archives_version)
-    archiveClassifier.set("")
-
-    val shadowJar = named<ShadowJar>("shadowJar").get()
-    dependsOn("shadowJar")
-    input.set(shadowJar.archiveFile)
   }
 }
 
