@@ -1,10 +1,10 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
-  kotlin("jvm") version "1.8.10"
-  kotlin("plugin.serialization") version "1.8.10"
+  kotlin("jvm") version "2.0.21"
+  kotlin("plugin.serialization") version "2.0.20"
   java
-  id("fabric-loom") version "1.1-SNAPSHOT"
+  id("fabric-loom") version "1.7.+"
   id("com.github.johnrengelman.shadow") version "7.1.2"
   id("com.modrinth.minotaur") version "2.+"
 }
@@ -25,9 +25,10 @@ repositories {
   maven("https://jitpack.io")  // MixinExtras, Fabric ASM
   maven("https://maven.jamieswhiteshirt.com/libs-release")  // Reach Entity Attributes
   maven("https://mvn.devos.one/snapshots/")  // Create Fabric
+  maven("https://mvn.devos.one/releases") // Porting Lib Releases
   maven("https://api.modrinth.com/maven")  // LazyDFU
   maven("https://maven.tterrag.com/")  // Flywheel
-  maven("https://www.cursemaven.com")  // Forge Config API Port
+  maven("https://raw.githubusercontent.com/Fuzss/modresources/main/maven/") // Forge config api port
 }
 
 val shadowDep: Configuration by configurations.creating
@@ -51,7 +52,6 @@ dependencies {
   modImplementation("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version")
 
   modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:$create_version+mc$minecraft_version")
-  modImplementation("io.github.fabricators_of_create.Porting-Lib:Porting-Lib:$porting_lib_version")
 
   shadowDep("io.ktor:ktor-server-core-jvm:$ktor_version")
   shadowDep("io.ktor:ktor-server-cio-jvm:$ktor_version")
