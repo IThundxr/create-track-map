@@ -46,10 +46,11 @@ dependencies {
   modImplementation("net.fabricmc:fabric-language-kotlin:$fabric_kotlin_version")
 
   modImplementation("com.simibubi.create:create-fabric-${minecraft_version}:$create_version+mc$minecraft_version")
-
+  
   implementation(include("io.ktor:ktor-server-core-jvm:$ktor_version")!!)
   implementation(include("io.ktor:ktor-server-cio-jvm:$ktor_version")!!) 
   implementation(include("io.ktor:ktor-server-cors-jvm:$ktor_version")!!)
+  implementation(include("io.ktor:ktor-utils-jvm:$ktor_version")!!)
   implementation(include("org.jetbrains.kotlin-wrappers:kotlin-css:$kotlin_css_version")!!)
 
   compileOnly("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_json_version")
