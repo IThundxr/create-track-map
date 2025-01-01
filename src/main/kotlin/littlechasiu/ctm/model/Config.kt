@@ -134,6 +134,10 @@ data class Config @OptIn(ExperimentalSerializationApi::class) constructor(
   @EncodeDefault
   val enable: Boolean = true,
 
+  @SerialName("enable_bluemap_compat")
+  @EncodeDefault
+  val enableBluemapCompat: Boolean = false,
+
   @SerialName("watch_interval_seconds")
   @EncodeDefault
   val watchIntervalSeconds: Double = 0.5,

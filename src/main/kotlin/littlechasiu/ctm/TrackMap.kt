@@ -75,6 +75,7 @@ object TrackMap {
     }
 
     watcher.enable = config.enable
+    watcher.enableBluemapCompat = config.enableBluemapCompat
     server.enable = config.enable
     watcher.watchInterval = config.watchIntervalSeconds.seconds
     server.port = config.serverPort

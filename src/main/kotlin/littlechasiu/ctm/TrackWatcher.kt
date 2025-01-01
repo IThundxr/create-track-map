@@ -24,6 +24,7 @@ import kotlin.time.Duration.Companion.seconds
 
 class TrackWatcher() {
   var enable: Boolean = true
+  var enableBluemapCompat = false;
   var watchInterval: Duration = 0.5.seconds
   private var stopping: Boolean = false
   private var thread: Thread? = null
@@ -307,7 +308,7 @@ class TrackWatcher() {
     blockChannel.send(blockStatus)
     trainChannel.send(trainStatus)
 
-    if (System.getProperty("createTrackMap.enableBlueMapCompat").toBoolean()) {
+    if (enableBluemapCompat) {
       BlueMapIntegration.update()
     }
   }
